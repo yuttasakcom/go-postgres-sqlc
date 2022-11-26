@@ -16,3 +16,12 @@ $ make postgres
 $ make createdb
 $ migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 ```
+
+## SQLC
+
+[Document](https://docs.sqlc.dev/en/latest/overview/install.html)
+
+```
+$ sqlc help
+$ sqlc init
+```
