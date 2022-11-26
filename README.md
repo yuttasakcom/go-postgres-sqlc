@@ -7,3 +7,9 @@ $ migrate -help <!-- Document https://github.com/golang-migrate/migrate/tree/mas
 
 $ migrate create -ext sql -dir db/migration -seq init_schema
 ```
+
+## Docker
+
+```
+$ docker-compose up -d
+```
