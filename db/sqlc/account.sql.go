@@ -10,7 +10,7 @@ import (
 )
 
 const createAccount = `-- name: CreateAccount :one
-INSERT INTO accounts (owner,balance,currency) VALUES ($1,$2,$3) RETURNING id, owner, balance, currency, created_at
+INSERT INTO account (owner,balance,currency) VALUES ($1,$2,$3) RETURNING id, owner, balance, currency, created_at
 `
 
 type CreateAccountParams struct {
@@ -32,17 +32,17 @@ func (q *Queries) CreateAccount(ctx context.Context, arg CreateAccountParams) (A
 	return i, err
 }
 
-const deleteAaccount = `-- name: DeleteAccount :exec
-DELETE FROM accounts WHERE id = $1
+const deleteAccount = `-- name: DeleteAccount :exec
+DELETE FROM account WHERE id = $1
 `
 
 func (q *Queries) DeleteAccount(ctx context.Context, id int64) error {
-	_, err := q.exec(ctx, q.deleteAaccountStmt, deleteAaccount, id)
+	_, err := q.exec(ctx, q.deleteAccountStmt, deleteAccount, id)
 	return err
 }
 
 const getAccount = `-- name: GetAccount :one
-SELECT id, owner, balance, currency, created_at FROM accounts
+SELECT id, owner, balance, currency, created_at FROM account
 WHERE id = $1
 `
 
@@ -60,7 +60,7 @@ func (q *Queries) GetAccount(ctx context.Context, id int64) (Account, error) {
 }
 
 const listAccount = `-- name: ListAccount :many
-SELECT id, owner, balance, currency, created_at FROM accounts
+SELECT id, owner, balance, currency, created_at FROM account
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -101,7 +101,7 @@ func (q *Queries) ListAccount(ctx context.Context, arg ListAccountParams) ([]Acc
 }
 
 const updateAccount = `-- name: UpdateAccount :one
-UPDATE accounts SET balance = $2
+UPDATE account SET balance = $2
 WHERE id =$1
 RETURNING id, owner, balance, currency, created_at
 `
